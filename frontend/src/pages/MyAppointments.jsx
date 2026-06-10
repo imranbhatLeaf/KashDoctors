@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import GlobalNav from '../components/GlobalNav';
-import SubNavFrosted from '../components/SubNavFrosted';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import Layout from '../components/Layout';
 
 const MyAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -43,10 +42,7 @@ const MyAppointments = () => {
   };
 
   return (
-    <>
-      <GlobalNav />
-      <SubNavFrosted title="My Appointments" actionLabel="Find Doctors" onAction={() => navigate('/patient-portal')} />
-      
+    <Layout title="My Appointments" actionLabel="Find Doctors" onAction={() => navigate('/patient-portal')}>
       <div className="section-padding" style={{ maxWidth: '1000px', margin: '0 auto', padding: '60px 22px' }}>
         <h2 className="display-sm" style={{ marginBottom: '32px' }}>Booking History</h2>
         
@@ -131,7 +127,7 @@ const MyAppointments = () => {
           </div>
         )}
       </div>
-    </>
+    </Layout>
   );
 };
 

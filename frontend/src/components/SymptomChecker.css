@@ -1,0 +1,160 @@
+.symptom-checker-card {
+  background: white;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--rounded-lg);
+  padding: 32px;
+  margin-bottom: 48px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s ease;
+}
+
+.checker-header {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.checker-icon {
+  font-size: 32px;
+  background: var(--color-surface-pearl);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+}
+
+.symptom-search-input {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: var(--rounded-md);
+  border: 1px solid var(--color-hairline);
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.symptom-search-input:focus {
+  border-color: var(--color-primary);
+}
+
+.selected-symptoms {
+  margin-top: 20px;
+}
+
+.symptom-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.symptom-pill {
+  padding: 8px 16px;
+  background: var(--color-surface-pearl);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--rounded-pill);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: capitalize;
+}
+
+.symptom-pill:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.symptom-pill.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.pill-close {
+  font-size: 16px;
+  opacity: 0.7;
+}
+
+.available-symptoms {
+  margin-top: 16px;
+  min-height: 40px;
+}
+
+.error-message {
+  color: #ff4d4f;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.prediction-result {
+  margin-top: 24px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.result-divider {
+  height: 1px;
+  background: var(--color-hairline);
+  margin: 24px 0;
+}
+
+.confidence-bar {
+  height: 8px;
+  background: var(--color-surface-pearl);
+  border-radius: 4px;
+  margin: 16px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.confidence-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 4px;
+  transition: width 1s ease-out;
+}
+
+.confidence-text {
+  position: absolute;
+  right: 0;
+  top: -20px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.recommendation-box {
+  background: var(--color-surface-pearl);
+  padding: 20px;
+  border-radius: var(--rounded-md);
+  margin-top: 24px;
+}
+
+.specialist-recommendation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.specialist-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.button-pill-outline.small {
+  padding: 6px 16px;
+  font-size: 12px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import GlobalNav from '../components/GlobalNav';
-import SubNavFrosted from '../components/SubNavFrosted';
+import Layout from '../components/Layout';
 import { useAuth } from '../context/AuthContext';
 
 const AdminDashboard = () => {
@@ -14,8 +13,6 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        // We'll need a new route for this, or just use doctors for now.
-        // Assuming admin can fetch all doctors at least.
         const res = await axios.get(`${API_URL}/users/doctors`);
         setUsers(res.data.data);
       } catch (err) {
@@ -28,9 +25,7 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <>
-      <GlobalNav />
-      <SubNavFrosted title="Admin Dashboard" />
+    <Layout title="Admin Dashboard">
       <div className="section-padding" style={{ maxWidth: '1000px', margin: '0 auto', padding: '40px 22px' }}>
         <h2 className="display-lg" style={{ marginBottom: '32px' }}>System Overview</h2>
         {loading ? (
@@ -62,7 +57,7 @@ const AdminDashboard = () => {
           </div>
         )}
       </div>
-    </>
+    </Layout>
   );
 };
 

@@ -1,16 +1,12 @@
 import React from 'react';
-import GlobalNav from '../components/GlobalNav';
-import SubNavFrosted from '../components/SubNavFrosted';
 import { useNavigate } from 'react-router-dom';
+import Layout from '../components/Layout';
 
 const About = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="about-page">
-      <GlobalNav />
-      <SubNavFrosted title="About KashDoc" actionLabel="Get Started" onAction={() => navigate('/register')} />
-      
+    <Layout title="About KashDoc" actionLabel="Get Started" onAction={() => navigate('/register')}>
       <div className="section-padding" style={{ maxWidth: '900px', margin: '0 auto', padding: '80px 22px' }}>
         <div style={{ marginBottom: '80px', textAlign: 'center' }}>
           <h1 className="display-xl" style={{ marginBottom: '24px', letterSpacing: '-0.02em' }}>
@@ -72,11 +68,7 @@ const About = () => {
           </div>
         </div>
       </div>
-
-      <footer style={{ textAlign: 'center', padding: '40px 0', borderTop: '1px solid var(--color-hairline)' }}>
-        <p className="fine-print">© 2026 KashDoc Inc. Srinagar, J&K.</p>
-      </footer>
-    </div>
+    </Layout>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import GlobalNav from '../components/GlobalNav';
+import Layout from '../components/Layout';
 
 const DocRegistration = () => {
   const [formData, setFormData] = useState({
@@ -30,9 +30,8 @@ const DocRegistration = () => {
   };
 
   return (
-    <>
-      <GlobalNav />
-      <div className="section-padding" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 44px)' }}>
+    <Layout showSubNav={false} showFooter={false}>
+      <div className="section-padding" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
         <div style={{ maxWidth: '500px', width: '100%', padding: '40px', backgroundColor: 'var(--color-canvas)', borderRadius: 'var(--rounded-lg)', border: '1px solid var(--color-hairline)' }}>
           <h2 className="display-md" style={{ marginBottom: '8px', textAlign: 'center' }}>Register as a Doctor</h2>
           <p className="body-secondary" style={{ marginBottom: '24px', textAlign: 'center' }}>Start your journey with us</p>
@@ -68,7 +67,7 @@ const DocRegistration = () => {
           </p>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 
