@@ -36,7 +36,7 @@ const Hero = () => {
             <div className="floating-card-bottom">
               <div className="card-avatar">👨‍⚕️</div>
               <div className="card-text">
-                <strong>Dr. Anthony</strong>
+                <strong>Dr. Tariq</strong>
                 <span>Available Now</span>
               </div>
             </div>
