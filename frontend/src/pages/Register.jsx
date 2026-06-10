@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import GlobalNav from '../components/GlobalNav';
+import Layout from '../components/Layout';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -21,7 +21,6 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Hardcode role to 'patient' to ensure it goes to the Patient collection
       await register({ ...formData, role: 'patient' });
       navigate('/');
     } catch (err) {
@@ -30,9 +29,8 @@ const Register = () => {
   };
 
   return (
-    <>
-      <GlobalNav />
-      <div className="section-padding" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 44px)' }}>
+    <Layout showSubNav={false} showFooter={false}>
+      <div className="section-padding" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
         <div style={{ maxWidth: '500px', width: '100%', padding: '40px', backgroundColor: 'var(--color-canvas)', borderRadius: 'var(--rounded-lg)', border: '1px solid var(--color-hairline)' }}>
           <h2 className="display-md" style={{ marginBottom: '8px', textAlign: 'center' }}>Patient Registration</h2>
           <p className="body-secondary" style={{ marginBottom: '24px', textAlign: 'center' }}>Join as a patient to book appointments</p>
@@ -71,7 +69,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

@@ -10,6 +10,12 @@ export const AuthProvider = ({ children }) => {
 
   const API_URL = import.meta.env.VITE_API_BASE_URL;
 
+  const logout = () => {
+    localStorage.removeItem('token');
+    setToken(null);
+    setUser(null);
+  };
+
   useEffect(() => {
     const fetchUser = async () => {
       if (token) {
@@ -43,12 +49,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem('token', token);
     setToken(token);
     return role;
-  };
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    setToken(null);
-    setUser(null);
   };
 
   return (

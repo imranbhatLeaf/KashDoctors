@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import GlobalNav from '../components/GlobalNav';
-import SubNavFrosted from '../components/SubNavFrosted';
 import DoctorCard from '../components/DoctorCard';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Layout from '../components/Layout';
 import './Doctors.css';
 
 const Doctors = () => {
@@ -59,14 +58,11 @@ const Doctors = () => {
     : doctors.filter(doc => doc.specialization === selectedCategory);
 
   return (
-    <div className="doctors-page">
-      <GlobalNav />
-      <SubNavFrosted 
-        title="Find your specialist" 
-        actionLabel={user ? "Dashboard" : "Home"} 
-        onAction={handleAction} 
-      />
-      
+    <Layout 
+      title="Find your specialist" 
+      actionLabel={user ? "Dashboard" : "Home"} 
+      onAction={handleAction}
+    >
       <section className="section-padding doctors-list-section">
         <div className="container">
           <div className="page-header">
@@ -106,11 +102,7 @@ const Doctors = () => {
           </div>
         </div>
       </section>
-
-      <footer className="footer">
-        <p className="fine-print">© 2026 KashDoc Inc. All rights reserved.</p>
-      </footer>
-    </div>
+    </Layout>
   );
 };
 

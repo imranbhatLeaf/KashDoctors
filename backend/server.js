@@ -10,6 +10,7 @@ dotenv.config();
 const auth = require('./routes/auth');
 const doctors = require('./routes/doctors');
 const appointments = require('./routes/appointments');
+const predict = require('./routes/predictionRoutes');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use('/api/auth', auth);
 app.use('/api/doctors', doctors);
 app.use('/api/appointments', appointments);
+app.use('/api/predict', predict);
 
 // Basic Route
 app.get('/', (req, res) => {
@@ -31,15 +33,23 @@ app.get('/', (req, res) => {
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
-mongoose
-  .connect(MONGO_URI)
-  .then(() => {
+const connectDB = async () => {
+  try {
+    await mongoose.connect(MONGO_URI);
     console.log('MongoDB Connected');
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  })
-  .catch((err) => {
+    if (process.env.NODE_ENV !== 'test') {
+      app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+      });
+    }
+  } catch (err) {
     console.error('Database connection error:', err.message);
-    process.exit(1);
-  });
+    if (process.env.NODE_ENV !== 'test') {
+      process.exit(1);
+    }
+  }
+};
+
+connectDB();
+
+module.exports = app;

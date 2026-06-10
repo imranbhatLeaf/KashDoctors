@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import GlobalNav from '../components/GlobalNav';
-import SubNavFrosted from '../components/SubNavFrosted';
+import Layout from '../components/Layout';
 import { useAuth } from '../context/AuthContext';
 
 const DoctorDashboard = () => {
@@ -88,14 +87,11 @@ const DoctorDashboard = () => {
   const recentAppointments = appointments.slice(0, 10); // Show recent 10
 
   return (
-    <>
-      <GlobalNav />
-      <SubNavFrosted 
-        title={`Doctor Dashboard - ${user?.name}`} 
-        actionLabel={showProfileSetup ? "Back to Dashboard" : "Setup Profile"}
-        onAction={() => setShowProfileSetup(!showProfileSetup)}
-      />
-      
+    <Layout 
+      title={`Doctor Dashboard - ${user?.name}`} 
+      actionLabel={showProfileSetup ? "Back to Dashboard" : "Setup Profile"}
+      onAction={() => setShowProfileSetup(!showProfileSetup)}
+    >
       <div className="section-padding" style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 22px' }}>
         
         {showProfileSetup ? (
@@ -291,7 +287,7 @@ const DoctorDashboard = () => {
           </>
         )}
       </div>
-    </>
+    </Layout>
   );
 };
 
