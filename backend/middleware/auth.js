@@ -20,6 +20,11 @@ exports.protect = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    if (decoded.role === 'admin') {
+      req.user = { _id: decoded.id, id: decoded.id, name: 'Admin', email: 'admin', role: 'admin' };
+      return next();
+    }
+
     // Try finding in both collections
     let user = await Patient.findById(decoded.id);
     if (!user) {

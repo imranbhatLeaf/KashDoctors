@@ -13,6 +13,7 @@ import MyAppointments from './pages/MyAppointments';
 import BookAppointment from './pages/BookAppointment';
 import DoctorDashboard from './pages/DoctorDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminLogin from './pages/AdminLogin';
 import About from './pages/About';
 import './App.css';
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/admin" element={<AdminLogin />} />
             <Route path="/register" element={<Register />} />
             <Route path="/register-doctor" element={<DocRegistration />} />
             <Route 
