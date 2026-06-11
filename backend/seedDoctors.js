@@ -5,65 +5,31 @@ const Doctor = require('./models/Doctor');
 dotenv.config();
 
 const doctors = [
-  // Cardiologist
-  { name: 'Dr. Sarah Mitchell', email: 'sarah.mitchell@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Cardiologist', experience: 12, fees: 150, isPopular: true },
-  { name: 'Dr. Anthony Rossi', email: 'anthony.rossi@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Cardiologist', experience: 18, fees: 220 },
-  { name: 'Dr. Julia Chen', email: 'julia.chen@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Cardiologist', experience: 10, fees: 170 },
-  
-  // Neurologist
-  { name: 'Dr. James Wilson', email: 'james.wilson@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Neurologist', experience: 15, fees: 200, isPopular: true },
-  { name: 'Dr. Michael Chang', email: 'michael.chang@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Neurologist', experience: 22, fees: 280 },
-  { name: 'Dr. Sarah Jenkins', email: 'sarah.jenkins@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Neurologist', experience: 9, fees: 190 },
-  
-  // Pediatrician
-  { name: 'Dr. Elena Rodriguez', email: 'elena.rodriguez@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Pediatrician', experience: 8, fees: 120, isPopular: true },
-  { name: 'Dr. William Thompson', email: 'william.thompson@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Pediatrician', experience: 14, fees: 140 },
-  { name: 'Dr. Emily White', email: 'emily.white@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Pediatrician', experience: 6, fees: 110 },
-  
-  // Orthopedic
-  { name: 'Dr. David Chen', email: 'david.chen@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Orthopedic', experience: 10, fees: 180 },
-  { name: 'Dr. Robert Miller', email: 'robert.miller@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Orthopedic', experience: 25, fees: 300 },
-  { name: 'Dr. Jessica Taylor', email: 'jessica.taylor@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Orthopedic', experience: 12, fees: 200 },
-  
-  // Dermatologist
-  { name: 'Dr. Amara Okafor', email: 'amara.okafor@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Dermatologist', experience: 7, fees: 130 },
-  { name: 'Dr. Christopher Lee', email: 'christopher.lee@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Dermatologist', experience: 15, fees: 180 },
-  { name: 'Dr. Sophia Martinez', email: 'sophia.martinez@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Dermatologist', experience: 11, fees: 150 },
-  
   // General Physician
-  { name: 'Dr. Thomas Müller', email: 'thomas.mueller@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'General Physician', experience: 20, fees: 100 },
-  { name: 'Dr. Laura Benson', email: 'laura.benson@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'General Physician', experience: 12, fees: 90 },
-  { name: 'Dr. Ahmed Hassan', email: 'ahmed.hassan@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'General Physician', experience: 16, fees: 110 },
-  
-  // Ophthalmology
-  { name: 'Dr. Lisa Wang', email: 'lisa.wang@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Ophthalmologist', experience: 11, fees: 160 },
-  { name: 'Dr. Steven Wright', email: 'steven.wright@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Ophthalmologist', experience: 19, fees: 210 },
-  { name: 'Dr. Karen Scott', email: 'karen.scott@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Ophthalmologist', experience: 8, fees: 150 },
-  
-  // Psychiatry
-  { name: 'Dr. Robert Sullivan', email: 'robert.sullivan@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Psychiatrist', experience: 14, fees: 190 },
-  { name: 'Dr. Patricia Moore', email: 'patricia.moore@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Psychiatrist', experience: 21, fees: 240 },
-  { name: 'Dr. Daniel Kim', email: 'daniel.kim@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Psychiatrist', experience: 10, fees: 170 },
-  
-  // Gynecology
-  { name: 'Dr. Maria Garcia', email: 'maria.garcia@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Gynecologist', experience: 9, fees: 140 },
-  { name: 'Dr. Jennifer Adams', email: 'jennifer.adams@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Gynecologist', experience: 17, fees: 180 },
-  { name: 'Dr. Linda Johnson', email: 'linda.johnson@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Gynecologist', experience: 13, fees: 160 },
-  
-  // Oncology
-  { name: 'Dr. Sanjay Gupta', email: 'sanjay.gupta@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Oncologist', experience: 18, fees: 250 },
-  { name: 'Dr. Richard Davis', email: 'richard.davis@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Oncologist', experience: 24, fees: 320 },
-  { name: 'Dr. Susan Peters', email: 'susan.peters@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Oncologist', experience: 14, fees: 220 },
-  
-  // Endocrinology
-  { name: 'Dr. Sophie Dubois', email: 'sophie.dubois@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Endocrinologist', experience: 6, fees: 150 },
-  { name: 'Dr. Mark Wilson', email: 'mark.wilson@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Endocrinologist', experience: 20, fees: 230 },
-  { name: 'Dr. Nancy Reed', email: 'nancy.reed@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Endocrinologist', experience: 11, fees: 180 },
-  
-  // Dentist
-  { name: 'Dr. Kevin Park', email: 'kevin.park@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Dentist', experience: 5, fees: 90 },
-  { name: 'Dr. Barbara Young', email: 'barbara.young@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Dentist', experience: 14, fees: 120 },
-  { name: 'Dr. George Harris', email: 'george.harris@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Dentist', experience: 10, fees: 100 },
+  { name: 'Dr. Farooq Ahmad Bhat', email: 'farooq.bhat@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'General Physician', experience: 15, fees: 80, certificationNo: 'JK-MC-98765', about: 'Senior consultant General Physician with over 15 years of clinical practice in Srinagar.', status: 'approved', isPopular: true },
+
+  // Neurologist
+  { name: 'Dr. Shabir Ahmad Dar', email: 'shabir.dar@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Neurologist', experience: 18, fees: 150, certificationNo: 'JK-MC-12435', about: 'Specialist in neuromuscular disorders and chronic headache management.', status: 'approved', isPopular: true },
+  { name: 'Dr. Sajad Ahmad Khan', email: 'sajad.khan@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Neurologist', experience: 7, fees: 140, certificationNo: 'JK-MC-44556', about: 'Young and dynamic neurologist focused on modern headache and epilepsy treatments. Currently pending review.', status: 'pending' },
+
+  // Gynecologist
+  { name: 'Dr. Nighat Ara', email: 'nighat.ara@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Gynecologist', experience: 12, fees: 100, certificationNo: 'JK-MC-78901', about: 'Expert in maternal-fetal medicine and reproductive endocrinology.', status: 'approved' },
+
+  // Cardiologist
+  { name: 'Dr. Tariq Ahmad Malik', email: 'tariq.malik@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Cardiologist', experience: 20, fees: 180, certificationNo: 'JK-MC-34567', about: 'Interventional cardiologist dedicated to advanced cardiac care.', status: 'approved', isPopular: true },
+
+  // Pediatrician
+  { name: 'Dr. Yasmeen Jabeen', email: 'yasmeen.jabeen@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Pediatrician', experience: 8, fees: 70, certificationNo: 'JK-MC-45678', about: 'Compassionate pediatric specialist focused on child growth and immunizations.', status: 'approved' },
+  { name: 'Dr. Mushtaq Ahmad Wani', email: 'mushtaq.wani@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Pediatrician', experience: 22, fees: 120, certificationNo: 'JK-MC-56789', about: 'Former HOD Pediatrics with decades of pediatric healthcare experience.', status: 'approved' },
+
+  // Dermatologist
+  { name: 'Dr. Bashir Ahmad Shah', email: 'bashir.shah@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Dermatologist', experience: 14, fees: 90, certificationNo: 'JK-MC-67890', about: 'Experienced dermatologist specializing in clinical dermatology and skin care therapy.', status: 'approved' },
+
+  // Gastroenterologist
+  { name: 'Dr. Firdous Ahmad Rather', email: 'firdous.rather@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Gastroenterologist', experience: 11, fees: 130, certificationNo: 'JK-MC-23456', about: 'Consultant gastroenterologist specializing in digestive and liver diseases.', status: 'approved' },
+
+  // Orthopedic
+  { name: 'Dr. Riaz Ahmad Lone', email: 'riaz.lone@kashdoc.com', password: 'password123', role: 'doctor', specialization: 'Orthopedic', experience: 9, fees: 110, certificationNo: 'JK-MC-11223', about: 'Orthopedic surgeon specializing in joint replacement and sports injuries. Currently pending review.', status: 'pending' },
 ];
 
 const seedDoctors = async () => {

@@ -7,7 +7,7 @@ const Patient = require('../models/Patient');
 // @access  Public
 exports.register = async (req, res) => {
   try {
-    const { name, email, password, role, phone } = req.body;
+    const { name, email, password, role, phone, certificationNo, specialization, experience, fees, about } = req.body;
     console.log(`Registration attempt: ${email}, role: ${role}`);
 
     // Check if user already exists in either collection
@@ -25,7 +25,19 @@ exports.register = async (req, res) => {
     let user;
     if (role === 'doctor') {
       console.log(`Targeting collection: ${Doctor.collection.name}`);
-      user = await Doctor.create({ name, email, password, role, phone });
+      user = await Doctor.create({ 
+        name, 
+        email, 
+        password, 
+        role, 
+        phone, 
+        certificationNo, 
+        specialization, 
+        experience: experience ? Number(experience) : undefined, 
+        fees: fees ? Number(fees) : undefined, 
+        about, 
+        status: 'pending' 
+      });
     } else {
       console.log(`Targeting collection: ${Patient.collection.name} in database: ${Patient.db.name}`);
       user = await Patient.create({ name, email, password, role: 'patient', phone });
@@ -56,6 +68,12 @@ exports.login = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Please provide an email and password' });
     }
 
+    // Check for admin login
+    if (email === 'admin' && password === 'admin') {
+      const adminUser = { _id: 'admin-id', name: 'Admin', email: 'admin', role: 'admin' };
+      return sendTokenResponse(adminUser, 200, res);
+    }
+
     // Check in both collections
     let user = await Patient.findOne({ email }).select('+password');
     if (!user) {
@@ -82,6 +100,9 @@ exports.login = async (req, res) => {
 // @access  Private
 exports.getMe = async (req, res) => {
   try {
+    if (req.user.role === 'admin') {
+      return res.status(200).json({ success: true, data: req.user });
+    }
     let user = await Patient.findById(req.user.id);
     if (!user) {
       user = await Doctor.findById(req.user.id);

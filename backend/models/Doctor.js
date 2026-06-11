@@ -48,6 +48,14 @@ const doctorSchema = new mongoose.Schema(
     about: {
       type: String,
     },
+    status: {
+      type: String,
+      enum: ['pending', 'approved', 'rejected'],
+      default: 'pending',
+    },
+    image: {
+      type: String,
+    },
   },
   {
     timestamps: true,
