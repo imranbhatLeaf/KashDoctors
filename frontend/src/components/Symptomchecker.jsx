@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+=======
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+>>>>>>> origin/main
 import './SymptomChecker.css';
 
 const SymptomChecker = ({ onResult }) => {
@@ -78,12 +83,19 @@ const SymptomChecker = ({ onResult }) => {
     onResult('All');
   };
 
+<<<<<<< HEAD
   const filteredSymptoms = useMemo(() => {
     return allSymptoms.filter(s =>
       s.toLowerCase().replace(/_/g, ' ').includes(searchTerm.toLowerCase()) &&
       !selectedSymptoms.includes(s)
     );
   }, [allSymptoms, searchTerm, selectedSymptoms]);
+=======
+  const filteredSymptoms = allSymptoms.filter(s =>
+    s.toLowerCase().replace(/_/g, ' ').includes(searchTerm.toLowerCase()) &&
+    !selectedSymptoms.includes(s)
+  );
+>>>>>>> origin/main
 
   return (
     <div className="symptom-checker-card">
@@ -252,6 +264,7 @@ const SymptomChecker = ({ onResult }) => {
                 </div>
               </div>
 
+<<<<<<< HEAD
               {/* Talk to AI Assistant Redirect */}
               <div style={{ marginTop: '20px', borderTop: '1px dashed var(--color-hairline)', paddingTop: '20px' }}>
                 <p className="body" style={{ marginBottom: '12px' }}>
@@ -273,6 +286,8 @@ const SymptomChecker = ({ onResult }) => {
                 </Link>
               </div>
 
+=======
+>>>>>>> origin/main
               {/* Disclaimer */}
               <p style={{
                 fontSize: '11px',
