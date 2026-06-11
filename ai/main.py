@@ -2,7 +2,6 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
-<<<<<<< HEAD
 import os
 import uuid
 
@@ -31,24 +30,10 @@ app = FastAPI(title="KashDocs Hybrid AI Service", version="2.0.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-=======
-from predict import get_prediction, get_all_symptoms
-from disease_map import DISEASE_SPECIALITY
-import os
-
-load_dotenv()
-
-app = FastAPI(title="Kashdocs AI Service", version="1.0.0")
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:5000", "http://localhost:3000"],
->>>>>>> origin/main
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-<<<<<<< HEAD
 # --- 1. In-Memory Session Store ---
 session_store: dict[str, ChatMessageHistory] = {}
 
@@ -189,15 +174,6 @@ def root():
     return {"status": "KashDocs Hybrid AI Service running"}
 
 # A. The Symptom Classifier
-=======
-class SymptomsRequest(BaseModel):
-    symptoms: list[str]
-
-@app.get("/")
-def root():
-    return {"status": "Kashdocs AI service running"}
-
->>>>>>> origin/main
 @app.get("/symptoms")
 def symptoms():
     return {"symptoms": get_all_symptoms()}
@@ -216,7 +192,6 @@ def predict(body: SymptomsRequest):
         "confidence": result["confidence"],
         "speciality": speciality,
         "top_predictions": result["top_predictions"]
-<<<<<<< HEAD
     }
 
 # B. The Conversational Chat (stateful)
@@ -292,6 +267,3 @@ def debug_retrieval(query: str):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-=======
-    }
->>>>>>> origin/main
