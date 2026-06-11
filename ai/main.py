@@ -107,11 +107,20 @@ try:
         # --- specialty Identification Chain ---
         all_specs = sorted(list(set(DISEASE_SPECIALITY.values())))
         specialty_prompt = ChatPromptTemplate.from_messages([
-            ("system", 
-             f"Based on the AI's medical advice, which of these specialists should the user consult? "
-             f"List: {', '.join(all_specs)}. "
-             "If the advice is general or no specific specialist is clearly indicated, return 'None'. "
-             "Return ONLY the specialist name or 'None'."
+            ("system",
+             "You are a medical triage assistant. Read the AI's medical advice and decide "
+             "which ONE specialist the patient should consult from this exact list:\n"
+             f"{', '.join(all_specs)}.\n\n"
+             "Rules:\n"
+             "- If the advice points to ANY specific condition, body system, or symptom, "
+             "pick the single most appropriate specialist. "
+             "For example: skin or hair issues (dandruff, rash, acne, eczema) -> Dermatologist; "
+             "heart or blood pressure issues -> Cardiologist; breathing/lung issues -> Pulmonologist; "
+             "stomach/liver/digestion issues -> Gastroenterologist; headaches/nerves -> Neurologist; "
+             "bones/joints -> Orthopedist.\n"
+             "- Only answer 'None' if the advice is purely general wellness with no condition at all.\n"
+             "- Respond with ONLY the specialist name, copied exactly from the list above, or 'None'. "
+             "Do not add any other words, punctuation, or explanation."
             ),
             ("human", "AI Advice: {answer}")
         ])
@@ -167,6 +176,81 @@ def answer_from_history(message: str, history: ChatMessageHistory) -> str:
         "Is there anything specific from this you'd like to follow up on?"
     )
 
+# Canonical specialty list (independent of RAG init so detection always works)
+ALL_SPECIALTIES = sorted(set(DISEASE_SPECIALITY.values()))
+
+# Extra keyword hints for common terms that may not appear in the disease map
+KEYWORD_SPECIALTY = {
+    "dandruff": "Dermatologist",
+    "seborrheic": "Dermatologist",
+    "eczema": "Dermatologist",
+    "rash": "Dermatologist",
+    "acne": "Dermatologist",
+    "pimple": "Dermatologist",
+    "skin": "Dermatologist",
+    "scalp": "Dermatologist",
+    "hair fall": "Dermatologist",
+    "hair loss": "Dermatologist",
+    "dermat": "Dermatologist",
+    "cardio": "Cardiologist",
+    "blood pressure": "Cardiologist",
+    "hypertension": "Cardiologist",
+    "neurolog": "Neurologist",
+    "migraine": "Neurologist",
+    "pulmonolog": "Pulmonologist",
+    "asthma": "Pulmonologist",
+    "gastro": "Gastroenterologist",
+    "orthoped": "Orthopedist",
+    "joint pain": "Orthopedist",
+    "endocrin": "Endocrinologist",
+    "thyroid": "Endocrinologist",
+    "diabetes": "Endocrinologist",
+}
+
+def detect_specialty(answer: str) -> str | None:
+    """Robustly figure out which specialist the answer points to.
+
+    Strategy (cheapest/most reliable first):
+      1. The answer already names a known specialty.
+      2. The answer mentions a known disease -> map to its specialty.
+      3. The answer contains a known keyword hint (e.g. 'dandruff').
+      4. Ask the LLM specialty chain and normalise its output to a known specialty.
+    """
+    if not answer:
+        return None
+    lowered = answer.lower()
+
+    # 1. Direct specialty name mention
+    for spec in ALL_SPECIALTIES:
+        if spec.lower() in lowered:
+            return spec
+
+    # 2. Known disease keyword -> mapped specialty
+    for disease, spec in DISEASE_SPECIALITY.items():
+        if disease.lower() in lowered:
+            return spec
+
+    # 3. Supplemental keyword hints
+    for keyword, spec in KEYWORD_SPECIALTY.items():
+        if keyword in lowered:
+            return spec
+
+    # 4. LLM-based inference (normalised to a known specialty)
+    chain = globals().get("specialty_chain")
+    if chain is not None:
+        try:
+            resp = chain.invoke({"answer": answer})
+            raw = (resp.content or "").strip()
+            if raw and raw.lower() != "none":
+                raw_lower = raw.lower()
+                for spec in ALL_SPECIALTIES:
+                    if spec.lower() in raw_lower:
+                        return spec
+        except Exception as e:
+            print(f"Specialty detection error: {e}")
+
+    return None
+
 # --- 5. Endpoints ---
 
 @app.get("/")
@@ -219,16 +303,8 @@ def chat(body: ChatRequest):
         )
         answer = response["answer"]
 
-        # Identify specialty
-        recommended_specialty = None
-        if specialty_chain:
-            try:
-                spec_response = specialty_chain.invoke({"answer": answer})
-                spec_name = spec_response.content.strip()
-                if spec_name != "None":
-                    recommended_specialty = spec_name
-            except Exception as e:
-                print(f"Specialty identification error: {e}")
+        # Identify specialty (robust, multi-strategy detection)
+        recommended_specialty = detect_specialty(answer)
 
         return ChatResponse(
             answer=answer, 

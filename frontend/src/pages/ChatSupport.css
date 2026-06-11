@@ -1,0 +1,136 @@
+.ai-assistant-section {
+  background:
+    radial-gradient(1200px 400px at 50% -120px, rgba(0, 102, 204, 0.08), transparent 70%),
+    var(--color-canvas-parchment);
+  min-height: 100vh;
+}
+
+/* ── Hero ── */
+.ai-hero {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 48px;
+}
+
+.ai-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--rounded-pill);
+  background: white;
+  border: 1px solid var(--color-hairline);
+  color: var(--color-primary);
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  margin-bottom: 22px;
+}
+
+.ai-hero-title {
+  margin-bottom: 16px;
+}
+
+.ai-hero-sub {
+  color: var(--color-ink-muted-48);
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+/* ── Layout: info rail + chat ── */
+.ai-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 32px;
+  align-items: start;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.ai-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: 96px;
+}
+
+.ai-feature {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: white;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--rounded-lg);
+  padding: 18px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.03);
+}
+
+.ai-feature-icon {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-focus));
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.22);
+}
+
+.ai-feature-title {
+  font-family: var(--font-text);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-ink);
+  margin: 0 0 3px 0;
+}
+
+.ai-feature-text {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--color-ink-muted-48);
+  margin: 0;
+}
+
+.ai-disclaimer-card {
+  background: var(--color-surface-pearl);
+  border: 1px dashed var(--color-hairline);
+  border-radius: var(--rounded-md);
+  padding: 14px 16px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-ink-muted-48);
+}
+
+.ai-chat-wrap {
+  min-width: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .ai-layout {
+    grid-template-columns: 1fr;
+  }
+  .ai-rail {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .ai-feature {
+    flex: 1 1 220px;
+  }
+  .ai-disclaimer-card {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .ai-hero-sub {
+    font-size: 17px;
+  }
+  .ai-rail {
+    flex-direction: column;
+  }
+}

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import DoctorCard from '../components/DoctorCard';
 import SymptomChecker from '../components/SymptomChecker';
-import MedicalChat from '../components/MedicalChat';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Layout from '../components/Layout';
@@ -101,7 +100,7 @@ const PatientPortal = () => {
         )}
 
         {/* Upcoming Appointments */}
-        {appointments.length > 0 && (
+        {(loading || appointments.length > 0) && (
           <div style={{ marginBottom: '60px' }}>
             <div style={{
               display: 'flex',
@@ -122,7 +121,26 @@ const PatientPortal = () => {
               gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
               gap: '20px'
             }}>
-              {appointments.map(appt => (
+              {loading ? (
+                [0, 1].map(i => (
+                  <div key={`skeleton-${i}`} className="appt-skeleton" style={{
+                    padding: '24px',
+                    backgroundColor: 'var(--color-surface-pearl)',
+                    border: '1px solid var(--color-hairline)',
+                    borderRadius: 'var(--rounded-lg)',
+                    display: 'flex',
+                    gap: '16px',
+                    alignItems: 'center'
+                  }}>
+                    <div className="skeleton-block" style={{ width: '56px', height: '56px', borderRadius: '12px', flexShrink: 0 }} />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div className="skeleton-block" style={{ height: '14px', width: '60%', borderRadius: '6px', marginBottom: '8px' }} />
+                      <div className="skeleton-block" style={{ height: '12px', width: '40%', borderRadius: '6px' }} />
+                    </div>
+                  </div>
+                ))
+              ) : (
+                appointments.map(appt => (
                 <div key={appt._id} style={{
                   padding: '24px',
                   backgroundColor: 'var(--color-surface-pearl)',
@@ -164,23 +182,11 @@ const PatientPortal = () => {
                     {appt.status}
                   </span>
                 </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
         )}
-
-        {/* AI Chat Assistant Section */}
-        <div style={{ marginBottom: '60px' }}>
-          <div style={{ marginBottom: '24px' }}>
-            <h3 className="display-sm">Consult our AI Assistant</h3>
-            <p className="body" style={{ color: 'var(--color-ink-muted-80)' }}>
-              Ask questions about your symptoms or general health.
-            </p>
-          </div>
-          <div style={{ maxWidth: '800px' }}>
-            <MedicalChat onSpecialtySelect={handlePredictionResult} />
-          </div>
-        </div>
 
         {/* ── Symptom Checker ── */}
         <SymptomChecker onResult={handlePredictionResult} />

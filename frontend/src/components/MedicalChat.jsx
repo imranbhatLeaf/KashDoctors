@@ -2,9 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { Send, Bot, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './MedicalChat.css';
 
-const MedicalChat = ({ onSpecialtySelect }) => {
+const MedicalChat = ({ onSpecialtySelect, initialPrompt }) => {
   const [messages, setMessages] = useState([
     { role: 'assistant', content: 'Hello! I am KashDocs AI. How can I help you with your medical questions today?' }
   ]);
@@ -14,6 +15,7 @@ const MedicalChat = ({ onSpecialtySelect }) => {
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
   const navigate = useNavigate();
+  const { token } = useAuth();
 
   const API_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -35,23 +37,31 @@ const MedicalChat = ({ onSpecialtySelect }) => {
 
   const handleSend = async (e) => {
     e.preventDefault();
-    if (!input.trim() || isLoading) return;
+    sendMessage(input);
+  };
 
-    const userMessage = input.trim();
+  const sendMessage = async (rawMessage) => {
+    const userMessage = (rawMessage || '').trim();
+    if (!userMessage || isLoading) return;
+
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
 
     try {
-      const response = await axios.post(`${API_URL}/predict/chat`, { 
-        message: userMessage,
-        session_id: sessionId 
-      });
-      
+      const response = await axios.post(
+        `${API_URL}/predict/chat`,
+        {
+          message: userMessage,
+          session_id: sessionId
+        },
+        token ? { headers: { Authorization: `Bearer ${token}` } } : undefined
+      );
+
       const { answer, session_id, recommended_specialty } = response.data.data;
       setSessionId(session_id);
-      setMessages(prev => [...prev, { 
-        role: 'assistant', 
+      setMessages(prev => [...prev, {
+        role: 'assistant',
         content: answer,
         specialty: recommended_specialty
       }]);
@@ -62,6 +72,16 @@ const MedicalChat = ({ onSpecialtySelect }) => {
       setIsLoading(false);
     }
   };
+
+  // Auto-send an initial prompt (e.g. handed off from the Symptom Checker)
+  const initialPromptSentRef = useRef(false);
+  useEffect(() => {
+    if (initialPrompt && !initialPromptSentRef.current) {
+      initialPromptSentRef.current = true;
+      sendMessage(initialPrompt);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialPrompt]);
 
   const viewSpecialists = (specialty) => {
     if (onSpecialtySelect) {
@@ -123,7 +143,7 @@ const MedicalChat = ({ onSpecialtySelect }) => {
                       className="view-spec-btn"
                       onClick={() => viewSpecialists(msg.specialty)}
                     >
-                      Book Appointment
+                      View {msg.specialty} Doctors
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </button>
                   </div>

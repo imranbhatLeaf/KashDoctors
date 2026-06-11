@@ -23,7 +23,13 @@ const DoctorCard = ({ doctor, onBook }) => {
     <div className={`doctor-card ${doctor.isPopular ? 'popular-highlight' : ''}`}>
       <div className="doctor-image-container">
         {doctorPic ? (
-          <img src={doctorPic} alt={doctor.name} className="doctor-image" />
+          <img
+            src={doctorPic}
+            alt={doctor.name}
+            className="doctor-image"
+            loading="lazy"
+            decoding="async"
+          />
         ) : (
           <div className="doctor-image-placeholder">
             <span>{doctor.name.charAt(0)}</span>

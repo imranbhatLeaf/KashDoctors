@@ -63,6 +63,9 @@ const GlobalNav = () => {
           <Link to="/" className="nav-link" onClick={closeMenu}>Home</Link>
           <Link to="/doctors" className="nav-link" onClick={closeMenu}>Doctors</Link>
           <Link to="/about" className="nav-link" onClick={closeMenu}>About Us</Link>
+          {user && (
+            <Link to="/ai-assistant" className="nav-link" onClick={closeMenu}>AI Assistant</Link>
+          )}
           
           <div className="mobile-only-actions">
             {user ? (
