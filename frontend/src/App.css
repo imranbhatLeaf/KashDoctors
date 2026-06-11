@@ -1,0 +1,15 @@
+/* Global Application Styles */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: var(--font-text);
+  color: var(--color-ink-muted-48);
+}

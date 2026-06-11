@@ -1,0 +1,88 @@
+/* Home page specific styles */
+
+.doctors-preview-section {
+  background-color: #fbfbfd;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.view-all-container {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.about-section {
+  background-color: var(--color-canvas);
+  text-align: center;
+}
+
+.container.narrow {
+  max-width: 800px;
+}
+
+.body-text-large {
+  font-size: 24px;
+  line-height: 1.4;
+  color: var(--color-ink-muted-80);
+  margin: 32px 0 48px;
+}
+
+/* Common Buttons that might be used in other sections of Home */
+.button-primary-elevated {
+  background: var(--color-surface-black);
+  color: white;
+  padding: 18px 48px;
+  border-radius: 100px;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+}
+
+.button-primary-elevated:hover {
+  background: var(--color-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 102, 204, 0.2);
+}
+
+.button-secondary-outline {
+  background: transparent;
+  color: var(--color-primary);
+  padding: 18px 48px;
+  border-radius: 100px;
+  font-size: 18px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid var(--color-primary);
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.button-secondary-outline:hover {
+  background: rgba(0, 102, 204, 0.05);
+  transform: translateY(-2px);
+}
+
+.button-pill-outline {
+  background: transparent;
+  color: var(--color-ink);
+  padding: 14px 40px;
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 600;
+  border: 1px solid var(--color-ink);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button-pill-outline:hover {
+  background: var(--color-ink);
+  color: white;
+}
