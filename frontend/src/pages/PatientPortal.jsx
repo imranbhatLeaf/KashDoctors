@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useEffect, useState, useMemo } from 'react';
+=======
+import React, { useEffect, useState } from 'react';
+>>>>>>> origin/main
 import axios from 'axios';
 import DoctorCard from '../components/DoctorCard';
 import SymptomChecker from '../components/SymptomChecker';
@@ -40,7 +44,11 @@ const PatientPortal = () => {
       }
     };
     if (token) fetchData();
+<<<<<<< HEAD
   }, [token, API_URL]);
+=======
+  }, [token]);
+>>>>>>> origin/main
 
   useEffect(() => {
     if (successMessage) {
@@ -60,6 +68,7 @@ const PatientPortal = () => {
     }, 300);
   };
 
+<<<<<<< HEAD
   const specialties = useMemo(() => {
     return ['All', ...new Set(doctors.map(d => d.specialization))];
   }, [doctors]);
@@ -71,6 +80,15 @@ const PatientPortal = () => {
       return matchesName && matchesSpecialty;
     });
   }, [doctors, searchTerm, selectedSpecialty]);
+=======
+  const specialties = ['All', ...new Set(doctors.map(d => d.specialization))];
+
+  const filteredDoctors = doctors.filter(doc => {
+    const matchesName = doc.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSpecialty = selectedSpecialty === 'All' || doc.specialization === selectedSpecialty;
+    return matchesName && matchesSpecialty;
+  });
+>>>>>>> origin/main
 
   return (
     <Layout

@@ -41,6 +41,7 @@ exports.getSymptoms = async (req, res) => {
       error: error.message
     });
   }
+<<<<<<< HEAD
 };
 
 exports.chat = async (req, res) => {
@@ -69,4 +70,6 @@ exports.chat = async (req, res) => {
       error: error.message
     });
   }
+=======
+>>>>>>> origin/main
 };

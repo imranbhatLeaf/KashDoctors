@@ -11,4 +11,7 @@ yarn-error.log*
 package-lock.json
 pnpm-lock.yaml
 .vscode/
+<<<<<<< HEAD
 ai/data/Final_Augmented_dataset_Diseases_and_Symptoms.csv
+=======
+>>>>>>> origin/main
