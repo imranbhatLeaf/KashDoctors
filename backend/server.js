@@ -30,7 +30,11 @@ app.get('/', (req, res) => {
 });
 
 // Database Connection
+<<<<<<< HEAD
+const PORT = process.env.PORT || 8001;
+=======
 const PORT = process.env.PORT || 5000;
+>>>>>>> origin/main
 const MONGO_URI = process.env.MONGO_URI;
 
 const connectDB = async () => {
@@ -38,8 +42,16 @@ const connectDB = async () => {
     await mongoose.connect(MONGO_URI);
     console.log('MongoDB Connected');
     if (process.env.NODE_ENV !== 'test') {
+<<<<<<< HEAD
+      console.log('PORT value:', PORT);
+
       app.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
+        
+=======
+      app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+>>>>>>> origin/main
       });
     }
   } catch (err) {

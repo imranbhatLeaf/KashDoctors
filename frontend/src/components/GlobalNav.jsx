@@ -62,6 +62,10 @@ const GlobalNav = () => {
         <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
           <Link to="/" className="nav-link" onClick={closeMenu}>Home</Link>
           <Link to="/doctors" className="nav-link" onClick={closeMenu}>Doctors</Link>
+<<<<<<< HEAD
+          <Link to="/chat" className="nav-link" onClick={closeMenu}>AI Assistant</Link>
+=======
+>>>>>>> origin/main
           <Link to="/about" className="nav-link" onClick={closeMenu}>About Us</Link>
           
           <div className="mobile-only-actions">
@@ -110,4 +114,8 @@ const GlobalNav = () => {
   );
 };
 
+<<<<<<< HEAD
+export default React.memo(GlobalNav);
+=======
 export default GlobalNav;
+>>>>>>> origin/main

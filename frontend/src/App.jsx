@@ -8,6 +8,10 @@ import Doctors from './pages/Doctors';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import DocRegistration from './pages/DocRegistration';
+<<<<<<< HEAD
+import ChatSupport from './pages/ChatSupport';
+=======
+>>>>>>> origin/main
 import PatientPortal from './pages/PatientPortal';
 import MyAppointments from './pages/MyAppointments';
 import BookAppointment from './pages/BookAppointment';
@@ -32,6 +36,17 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/register-doctor" element={<DocRegistration />} />
             <Route 
+<<<<<<< HEAD
+              path="/chat" 
+              element={
+                <ProtectedRoute>
+                  <ChatSupport />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+=======
+>>>>>>> origin/main
               path="/patient-portal" 
               element={
                 <ProtectedRoute role="patient">

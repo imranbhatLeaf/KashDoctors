@@ -16,7 +16,13 @@ const Layout = ({ children, title, actionLabel, onAction, showSubNav = true, sho
         />
       )}
       <main className="main-content">
+<<<<<<< HEAD
+        <div className="animate-page">
+          {children}
+        </div>
+=======
         {children}
+>>>>>>> origin/main
       </main>
       {showFooter && <Footer />}
     </div>
