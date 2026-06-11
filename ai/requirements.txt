@@ -4,7 +4,6 @@ pandas
 scikit-learn
 python-dotenv
 numpy
-<<<<<<< HEAD
 langchain
 langchain-pinecone
 langchain-mistralai
@@ -13,5 +12,3 @@ langchain-huggingface
 sentence-transformers
 pydantic
 pydantic-settings
-=======
->>>>>>> origin/main

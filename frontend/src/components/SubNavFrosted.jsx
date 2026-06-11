@@ -18,8 +18,4 @@ const SubNavFrosted = ({ title, actionLabel, onAction }) => {
   );
 };
 
-<<<<<<< HEAD
-export default React.memo(SubNavFrosted);
-=======
 export default SubNavFrosted;
->>>>>>> origin/main
