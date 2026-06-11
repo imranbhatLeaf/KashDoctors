@@ -13,4 +13,8 @@ const Footer = () => {
   );
 };
 
+<<<<<<< HEAD
+export default React.memo(Footer);
+=======
 export default Footer;
+>>>>>>> origin/main

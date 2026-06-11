@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import React, { useState, useEffect, useMemo } from 'react';
+=======
 import React, { useState, useEffect } from 'react';
+>>>>>>> origin/main
 import DoctorCard from '../components/DoctorCard';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -31,9 +35,17 @@ const Doctors = () => {
     };
 
     fetchDoctors();
+<<<<<<< HEAD
+  }, [API_URL]);
+
+  const categories = useMemo(() => {
+    return ['All', ...new Set(doctors.map(doc => doc.specialization))];
+  }, [doctors]);
+=======
   }, []);
 
   const categories = ['All', ...new Set(doctors.map(doc => doc.specialization))];
+>>>>>>> origin/main
 
   const handleBook = (id) => {
     if (user && user.role === 'patient') {
@@ -53,9 +65,17 @@ const Doctors = () => {
     }
   };
 
+<<<<<<< HEAD
+  const filteredDoctors = useMemo(() => {
+    return selectedCategory === 'All' 
+      ? doctors 
+      : doctors.filter(doc => doc.specialization === selectedCategory);
+  }, [doctors, selectedCategory]);
+=======
   const filteredDoctors = selectedCategory === 'All' 
     ? doctors 
     : doctors.filter(doc => doc.specialization === selectedCategory);
+>>>>>>> origin/main
 
   return (
     <Layout 
