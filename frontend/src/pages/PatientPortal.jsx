@@ -1,11 +1,8 @@
-<<<<<<< HEAD
-import React, { useEffect, useState, useMemo } from 'react';
-=======
 import React, { useEffect, useState } from 'react';
->>>>>>> origin/main
 import axios from 'axios';
 import DoctorCard from '../components/DoctorCard';
 import SymptomChecker from '../components/SymptomChecker';
+import MedicalChat from '../components/MedicalChat';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Layout from '../components/Layout';
@@ -44,11 +41,7 @@ const PatientPortal = () => {
       }
     };
     if (token) fetchData();
-<<<<<<< HEAD
-  }, [token, API_URL]);
-=======
   }, [token]);
->>>>>>> origin/main
 
   useEffect(() => {
     if (successMessage) {
@@ -68,19 +61,6 @@ const PatientPortal = () => {
     }, 300);
   };
 
-<<<<<<< HEAD
-  const specialties = useMemo(() => {
-    return ['All', ...new Set(doctors.map(d => d.specialization))];
-  }, [doctors]);
-
-  const filteredDoctors = useMemo(() => {
-    return doctors.filter(doc => {
-      const matchesName = doc.name.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesSpecialty = selectedSpecialty === 'All' || doc.specialization === selectedSpecialty;
-      return matchesName && matchesSpecialty;
-    });
-  }, [doctors, searchTerm, selectedSpecialty]);
-=======
   const specialties = ['All', ...new Set(doctors.map(d => d.specialization))];
 
   const filteredDoctors = doctors.filter(doc => {
@@ -88,7 +68,6 @@ const PatientPortal = () => {
     const matchesSpecialty = selectedSpecialty === 'All' || doc.specialization === selectedSpecialty;
     return matchesName && matchesSpecialty;
   });
->>>>>>> origin/main
 
   return (
     <Layout
@@ -189,6 +168,19 @@ const PatientPortal = () => {
             </div>
           </div>
         )}
+
+        {/* AI Chat Assistant Section */}
+        <div style={{ marginBottom: '60px' }}>
+          <div style={{ marginBottom: '24px' }}>
+            <h3 className="display-sm">Consult our AI Assistant</h3>
+            <p className="body" style={{ color: 'var(--color-ink-muted-80)' }}>
+              Ask questions about your symptoms or general health.
+            </p>
+          </div>
+          <div style={{ maxWidth: '800px' }}>
+            <MedicalChat onSpecialtySelect={handlePredictionResult} />
+          </div>
+        </div>
 
         {/* ── Symptom Checker ── */}
         <SymptomChecker onResult={handlePredictionResult} />

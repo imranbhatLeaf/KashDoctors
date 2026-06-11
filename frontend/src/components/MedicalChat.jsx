@@ -4,7 +4,7 @@ import { Send, Bot, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import './MedicalChat.css';
 
-const MedicalChat = () => {
+const MedicalChat = ({ onSpecialtySelect }) => {
   const [messages, setMessages] = useState([
     { role: 'assistant', content: 'Hello! I am KashDocs AI. How can I help you with your medical questions today?' }
   ]);
@@ -64,7 +64,11 @@ const MedicalChat = () => {
   };
 
   const viewSpecialists = (specialty) => {
-    navigate('/doctors', { state: { specialty } });
+    if (onSpecialtySelect) {
+      onSpecialtySelect(specialty);
+    } else {
+      navigate('/doctors', { state: { specialty } });
+    }
   };
 
   const TypingIndicator = () => (
