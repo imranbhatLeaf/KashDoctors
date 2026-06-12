@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './SymptomChecker.css';
 
 const SymptomChecker = ({ onResult }) => {
@@ -9,6 +10,7 @@ const SymptomChecker = ({ onResult }) => {
   const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const API_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -67,6 +69,15 @@ const SymptomChecker = ({ onResult }) => {
         document.getElementById('doctor-list')?.scrollIntoView({ behavior: 'smooth' });
       }, 100);
     }
+  };
+
+  const handleChatWithAI = () => {
+    const symptomText = selectedSymptoms.map(s => s.replace(/_/g, ' ')).join(', ');
+    const prefill =
+      `I used the symptom checker and it suggested I might have ${prediction?.disease}. ` +
+      `My symptoms are: ${symptomText}. ` +
+      `Can you explain this condition and advise me on what to do next?`;
+    navigate('/ai-assistant', { state: { prefill } });
   };
 
   const handleReset = () => {
@@ -247,6 +258,22 @@ const SymptomChecker = ({ onResult }) => {
                     View Specialists ↓
                   </button>
                 </div>
+
+                {/* Chat with AI Assistant for further help */}
+                <button
+                  className="button-primary-elevated"
+                  onClick={handleChatWithAI}
+                  style={{
+                    marginTop: '14px',
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px'
+                  }}
+                >
+                  💬 Talk more about this with the AI Assistant
+                </button>
               </div>
 
               {/* Disclaimer */}

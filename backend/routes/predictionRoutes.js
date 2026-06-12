@@ -7,6 +7,7 @@ const router = express.Router();
 // You can add 'protect' middleware here if you want only registered users to use the AI
 router.post('/', getPrediction);
 router.get('/symptoms', getSymptoms);
-router.post('/chat', chat);
+// AI Assistant chat is restricted to signed-in users only
+router.post('/chat', protect, chat);
 
 module.exports = router;
