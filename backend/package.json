@@ -20,19 +20,11 @@
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.6.3",
-<<<<<<< HEAD
-    "multer": "^2.1.1",
-    "nodemon": "^3.1.14"
-  },
-  "devDependencies": {
-    "jest": "^30.4.2",
-=======
     "multer": "^2.1.1"
   },
   "devDependencies": {
     "jest": "^30.4.2",
     "nodemon": "^3.1.14",
->>>>>>> da2b5acf98a795ff6c4f72453005aa3224bad0ca
     "supertest": "^7.2.2"
   }
 }

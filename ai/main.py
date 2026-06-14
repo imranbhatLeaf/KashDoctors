@@ -107,13 +107,6 @@ try:
         # --- specialty Identification Chain ---
         all_specs = sorted(list(set(DISEASE_SPECIALITY.values())))
         specialty_prompt = ChatPromptTemplate.from_messages([
-<<<<<<< HEAD
-            ("system", 
-             f"Based on the AI's medical advice, which of these specialists should the user consult? "
-             f"List: {', '.join(all_specs)}. "
-             "If the advice is general or no specific specialist is clearly indicated, return 'None'. "
-             "Return ONLY the specialist name or 'None'."
-=======
             ("system",
              "You are a medical triage assistant. Read the AI's medical advice and decide "
              "which ONE specialist the patient should consult from this exact list:\n"
@@ -128,7 +121,6 @@ try:
              "- Only answer 'None' if the advice is purely general wellness with no condition at all.\n"
              "- Respond with ONLY the specialist name, copied exactly from the list above, or 'None'. "
              "Do not add any other words, punctuation, or explanation."
->>>>>>> da2b5acf98a795ff6c4f72453005aa3224bad0ca
             ),
             ("human", "AI Advice: {answer}")
         ])
@@ -184,8 +176,6 @@ def answer_from_history(message: str, history: ChatMessageHistory) -> str:
         "Is there anything specific from this you'd like to follow up on?"
     )
 
-<<<<<<< HEAD
-=======
 # Canonical specialty list (independent of RAG init so detection always works)
 ALL_SPECIALTIES = sorted(set(DISEASE_SPECIALITY.values()))
 
@@ -261,7 +251,6 @@ def detect_specialty(answer: str) -> str | None:
 
     return None
 
->>>>>>> da2b5acf98a795ff6c4f72453005aa3224bad0ca
 # --- 5. Endpoints ---
 
 @app.get("/")
@@ -314,21 +303,8 @@ def chat(body: ChatRequest):
         )
         answer = response["answer"]
 
-<<<<<<< HEAD
-        # Identify specialty
-        recommended_specialty = None
-        if specialty_chain:
-            try:
-                spec_response = specialty_chain.invoke({"answer": answer})
-                spec_name = spec_response.content.strip()
-                if spec_name != "None":
-                    recommended_specialty = spec_name
-            except Exception as e:
-                print(f"Specialty identification error: {e}")
-=======
         # Identify specialty (robust, multi-strategy detection)
         recommended_specialty = detect_specialty(answer)
->>>>>>> da2b5acf98a795ff6c4f72453005aa3224bad0ca
 
         return ChatResponse(
             answer=answer, 
