@@ -295,5 +295,3 @@ const SymptomChecker = ({ onResult }) => {
 };
 
 export default SymptomChecker;
- 
- 
