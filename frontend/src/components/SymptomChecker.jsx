@@ -294,5 +294,6 @@ const SymptomChecker = ({ onResult }) => {
   );
 };
 
-export default SymptomChecker; 
+export default SymptomChecker;
+ 
  
