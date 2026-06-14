@@ -9,7 +9,6 @@ langchain
 langchain-pinecone
 langchain-mistralai
 langchain-community
-langchain-huggingface
-sentence-transformers==2.2.2
+fastembed
 pydantic
 pydantic-settings

@@ -1,6 +1,6 @@
 from langchain_community.document_loaders import DirectoryLoader, CSVLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings import FastEmbedEmbeddings
 from typing import List
 from langchain_core.documents import Document
 
@@ -44,7 +44,7 @@ def text_split(minimal_docs):
 
 def download_embeddings():
     model_name = "sentence-transformers/all-MiniLM-L6-v2"
-    embeddings = HuggingFaceEmbeddings(
+    embeddings = FastEmbedEmbeddings(
         model_name=model_name
     )
     return embeddings

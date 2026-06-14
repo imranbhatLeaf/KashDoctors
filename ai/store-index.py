@@ -7,12 +7,17 @@ from langchain_pinecone import PineconeVectorStore
 
 load_dotenv()
 
+# Resolve the data folder relative to THIS script's location, so the indexer
+# works no matter which directory you run it from.
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
 os.environ["PINECONE_API_KEY"] = PINECONE_API_KEY
 os.environ["MISTRAL_API_KEY"] = MISTRAL_API_KEY
 
-extracted_data = load_csv_files("data")
+extracted_data = load_csv_files(DATA_DIR)
 minimal_docs =filter_to_minimal_docs(extracted_data)
 texts_chunk = text_split(minimal_docs)
 
